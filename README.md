@@ -1,4 +1,4 @@
-# Course Assignments
+## Course Assignments
 
 A description of files within this folder:
 
@@ -382,10 +382,10 @@ write.table(maize10_position10, file = "decreasing_maize_chr10.tsv", sep = "\t",
 
 ### Teosinte
 ```{r}
-read_teosinte1= read.table("teosintechr/Chr1_teosinte.tsv", header = TRUE, sep = "\t")
+read_teosinte1= read.table("Chr1_teosinte.tsv", header = TRUE, sep = "\t")
 teosinte1_position1= arrange(read_teosinte1,desc(Position))
 teosinte1_position1[teosinte1_position1 == "?/?"] = "-/-"
-write.table(teosinte1_position1, file = "teosintechr/decreasing_teosinte_chr1.tsv", sep = "\t",quote=FALSE,row.names = FALSE)
+write.table(teosinte1_position1, file = "decreasing_teosinte_chr1.tsv", sep = "\t",quote=FALSE,row.names = FALSE)
 
 read_teosinte2= read.table("Chr2_teosinte.tsv", header = TRUE, sep = "\t")
 teosinte2_position2= arrange(read_teosinte2,desc(Position))
@@ -436,13 +436,19 @@ write.table(teosinte10_position10, file = "decreasing_teosinte_chr10.tsv", sep =
 
 # Visulaization
 
+
+### I was getting some error which I am not familer with while I using R, so not sure if that is related to particular machine or just mine. Therefore,will continue to obtain visualization.Therefore, anticipate error in this two chunks
 ```{r}
 install.packages("ggplot2")
-
+install.packages("magrittr")
+library(ggplot2)
+library(magrittr)
 ```
 
 ```{r}
-```
+read_snp= read.table("3columnssnp.tsv",header = TRUE, sep = "\t")
+filtered_data = read_snp  %>%
+  filter(!Chromosome %in% c("multiple", "unknown", "NA"),
+         !Position %in% c("multiple", "unknown"))
 
-```{r}
 ```
