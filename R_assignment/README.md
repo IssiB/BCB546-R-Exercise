@@ -436,17 +436,19 @@ write.table(teosinte10_position10, file = "decreasing_teosinte_chr10.tsv", sep =
 
 # Visulaization
 
+
+### I was getting some error which I am not familer with while I using R, so not sure if that is related to particular machine or just mine. Therefore,will continue to obtain visualization.Therefore, anticipate error in this two chunks
 ```{r}
 install.packages("ggplot2")
+install.packages("magrittr")
 library(ggplot2)
+library(magrittr)
 ```
 
 ```{r}
-snp_positon1=as.numeric(threecolsnp$Position)
-filter_snp_position=threecolsnp %>%
-  filter(Chromosome |= "multiple", Chromosome |= "unknown",Chromosome != "NA", Position != "unknown", Position != "multiple", Position != "NA" )
+read_snp= read.table("3columnssnp.tsv",header = TRUE, sep = "\t")
+filtered_data = read_snp  %>%
+  filter(!Chromosome %in% c("multiple", "unknown", "NA"),
+         !Position %in% c("multiple", "unknown"))
 
-```
-
-```{r}
 ```
