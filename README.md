@@ -1,4 +1,4 @@
-## Course Assignments
+# Course Assignments
 
 A description of files within this folder:
 
