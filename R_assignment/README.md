@@ -382,10 +382,10 @@ write.table(maize10_position10, file = "decreasing_maize_chr10.tsv", sep = "\t",
 
 ### Teosinte
 ```{r}
-read_teosinte1= read.table("teosintechr/Chr1_teosinte.tsv", header = TRUE, sep = "\t")
+read_teosinte1= read.table("Chr1_teosinte.tsv", header = TRUE, sep = "\t")
 teosinte1_position1= arrange(read_teosinte1,desc(Position))
 teosinte1_position1[teosinte1_position1 == "?/?"] = "-/-"
-write.table(teosinte1_position1, file = "teosintechr/decreasing_teosinte_chr1.tsv", sep = "\t",quote=FALSE,row.names = FALSE)
+write.table(teosinte1_position1, file = "decreasing_teosinte_chr1.tsv", sep = "\t",quote=FALSE,row.names = FALSE)
 
 read_teosinte2= read.table("Chr2_teosinte.tsv", header = TRUE, sep = "\t")
 teosinte2_position2= arrange(read_teosinte2,desc(Position))
@@ -438,10 +438,14 @@ write.table(teosinte10_position10, file = "decreasing_teosinte_chr10.tsv", sep =
 
 ```{r}
 install.packages("ggplot2")
-
+library(ggplot2)
 ```
 
 ```{r}
+snp_positon1=as.numeric(threecolsnp$Position)
+filter_snp_position=threecolsnp %>%
+  filter(Chromosome |= "multiple", Chromosome |= "unknown",Chromosome != "NA", Position != "unknown", Position != "multiple", Position != "NA" )
+
 ```
 
 ```{r}
