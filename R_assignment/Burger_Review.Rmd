@@ -1,0 +1,79 @@
+---
+title: "Burger_Review"
+author: "Issi Burger"
+date: "2023-03-18"
+output: html_document
+---
+
+Code runs well overall! The only issue is that I couldn't get the two text documents to open initially, but once I changed my working directory, it worked fine. Also, I had to copy and paste the code into a new .Rmd file in order to "run all". Unless I missed it, the only file available from your repository was .md files, which didn't offer a "run all" election like an .Rmd document. I'd suggest adding a .Rmd file of your code to your repository so it's easier for other people to run.
+
+
+Quick comment about loading in the data --> once you load it and assign it a name (fang or snp), the data frame is saved in R for you to use. You don't need to write it to a .tsv file in order to use it in the rest of the code. You can just use "fang" from now on. This keeps you from having to work with a specific file saved on your computer and allows you to work with a data frame that's saved in R. 
+
+```{r}
+
+summary("read_snp_position.tsv")
+summary("R_assignment/snp_position.txt")
+summary("C:/Users/upatel/OneDrive - Iowa State University/BBMB Classes/BCB546/EEOB546_R_lesson/R_assignment/read_fang.tsv")
+nrow("R_assignment/snp_position.txt")
+nrow("R_assignment/read_snp_position.tsv")
+ncol("R_assignment/read_snp_position.tsv")
+dim("R_assignment/read_snp_position.tsv")
+head("R_assignment/snp_position.txt")
+ncol("R_assignment/read_fang.tsv")
+view(read_tsv("read_snp_position.tsv"))
+view(read_tsv("read_fang.tsv"))
+```
+Using the summary command to determine different aspects of the files makes sense! I would suggest not using the specific file name for nrow and ncol though, and instead use the names you assigned the files (fang and snp). My output of the nrow, ncol, head, and dim commands is "Null" instead of the actual number of rows, columns, dimensions, and head of the file. Try the command nrow(fang). That should give you the number of rows in the file instead of a null value. 
+
+
+```{r}
+threecolsnp=select(snp,1,3,4)
+write_tsv(threecolsnp,"3columnssnp.tsv")
+```
+I like the select command! You can also use the select command to choose columns based on their names and not just their position. This keeps you from accidentally choosing a column you don't need. Another option is to subset these columns using:
+
+threecolsnp = snp[,c(1,3,4)]
+
+If you want it to be a data frame, you can then write:
+
+threecolsnp = as.data.frame(snp[,c(1,3,4)]) instead of writing a .tsv file. 
+
+
+```{r}
+data=read.delim("read_fang.tsv")
+corn_fang= grepl("ZMMIL",data$Group)|grepl("ZMMLR",data$Group)|grepl("ZMMMR",data$Group)
+result=data[corn_fang,]
+write_tsv(result,"maize_fang.tsv")
+```
+I didn't even know you could use the grep command in R, so this was new to me! Very clear and pretty cool. I also didn't know that the "data" command could take the output in corn_fang and make it a data frame, so that's neat. 
+
+
+```{r}
+read= read.delim("snp_maize.tsv")
+unkonwn_maize=grepl("unknown", read$Chromosome) | grepl("unknown", read$Position)
+multiple_maize=grepl("multiple", read$Chromosome) | grepl("multiple",read$Position)
+result_unknown=read[unkonwn_maize,]
+result_multiple=read[multiple_maize,]
+write_tsv(result_unknown,"unknown_maize.tsv")
+write_tsv(result_multiple,"multiple_maize.tsv")
+```
+
+```{r}
+read= read.delim("snp_teosinte.tsv")
+unkonwn_teosinte=grepl("unknown", read$Chromosome) | grepl("unknown", read$Position)
+multiple_teosinte=grepl("multiple", read$Chromosome) | grepl("multiple",read$Position)
+result_unknown=read[unkonwn_teosinte,]
+result_multiple=read[multiple_teosinte,]
+write_tsv(result_unknown,"unknown_teosinte.tsv")
+write_tsv(result_multiple,"multiple_teosinte.tsv")
+```
+I like that you extracted the "unknown" and "multiple" values prior to organizing the rest of the data. Great job!
+
+
+For the data inspection, I only really have one comment (the same one I made at the beginning of the file). Once you've defined a data frame (fang <- read_tsv("fang_et_al_genotypes.txt")), you can just use "fang" in the rest of your code. For example, if you want to transpose the fang data frame, you can write fang <- t(fang) instead of referring to a .tsv file saved on your computer. Calling data that is stored in R instead of on your computer just cuts out a step and limits the files you have saved outside of R. It's also less code you have to write!
+
+The only error I got in the visualization section is that I was trying to install packages that I already had on my computer. Once I deleted those two commands, what you had ran smoothly. Best of luck on making your graphs!
+
+
+Overall, your code was clear and easy to run. I learned a lot by looking at your code, and most of my commands just provide other options, not really anything you need to change. Great job!!
